@@ -52,8 +52,11 @@ const Skills = () => {
         "VS Code",
         "Figma",
         "Postman",
-        "Vercel",
         "Docker",
+        "Vercel",
+        "Netlify",
+        "Railway",
+        "XAMPP",
       ],
     },
   ];
@@ -89,50 +92,15 @@ const Skills = () => {
         development skills to craft scalable and intelligent applications.
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "2rem",
-          maxWidth: "1100px",
-          margin: "0 auto",
-        }}
-      >
+      {/* ✅ Responsive Grid */}
+      <div className="skills-grid">
         {skills.map((skill, index) => (
           <div
             key={index}
-            style={{
-              background: "#1e293b",
-              padding: "2rem",
-              borderRadius: "14px",
-              boxShadow: "0 6px 18px rgba(0,0,0,0.5)",
-              textAlign: "left",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-6px)";
-              e.currentTarget.style.boxShadow =
-                "0 12px 24px rgba(0,0,0,0.7)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 6px 18px rgba(0,0,0,0.5)";
-            }}
+            className="skill-card"
           >
-            <h3
-              style={{
-                color: "#22d3ee",
-                fontSize: "1.5rem",
-                fontWeight: 700,
-                marginBottom: "1rem",
-              }}
-            >
-              {skill.category}
-            </h3>
-            <ul
-              style={{ color: "#9ca3af", fontSize: "1rem", lineHeight: "1.8" }}
-            >
+            <h3>{skill.category}</h3>
+            <ul>
               {skill.items.map((item, i) => (
                 <li key={i}>✅ {item}</li>
               ))}
@@ -140,6 +108,56 @@ const Skills = () => {
           </div>
         ))}
       </div>
+
+      {/* ✅ Styles */}
+      <style jsx>{`
+        .skills-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 25px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .skill-card {
+          background: #1e293b;
+          padding: 2rem;
+          border-radius: 14px;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+          text-align: left;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        .skill-card h3 {
+          color: #22d3ee;
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+        }
+
+        .skill-card ul {
+          color: #9ca3af;
+          font-size: 1rem;
+          line-height: 1.8;
+        }
+
+        /* ✅ Responsive Breakpoints */
+        @media (min-width: 600px) {
+          .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 900px) {
+          .skills-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      `}</style>
     </section>
   );
 };
