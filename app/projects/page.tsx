@@ -31,7 +31,7 @@ const Projects = () => {
       title: "Car Rental Website",
       description:
         "A customer-friendly car rental website featuring real-time vehicle listings, booking functionality, and integrated payment gateways.",
-      tech: ["React", "Sanity CMS", "Node.js", "MongoDB"],
+      tech: ["React", "Sanity CMS", "Node.js", "Tailwind CSS"],
       link: "https://project-rust-pi.vercel.app/",
       github: "https://github.com/Anas-Rajput12/Hackathon-quarter2",
       image: "/images/pic4.png",
@@ -40,16 +40,17 @@ const Projects = () => {
       title: "Car Rental Dashboard",
       description:
         "An admin dashboard for managing vehicles, customers, and bookings with secure authentication, CRUD operations, and analytics insights.",
-      tech: ["Next.js", "Sanity CMS", "Node.js", "MongoDB"],
+      tech: ["Next.js", "Sanity CMS", "Node.js", "Tailwind CSS"],
       link: "https://project-rust-pi.vercel.app/dashboard",
-      github: "https://github.com/Anas-Rajput12/Hackathon-quarter2/tree/main/app/dashboard",
+      github:
+        "https://github.com/Anas-Rajput12/Hackathon-quarter2/tree/main/app/dashboard",
       image: "/images/pic5.png",
     },
     {
       title: "Bandage E-Commerce Website",
       description:
         "A responsive e-commerce solution offering product listings, cart management, user authentication, and secure checkout workflow.",
-      tech: ["Next.js", "Tailwind CSS", "Sanity CMS", "Node.js", "MongoDB"],
+      tech: ["Next.js", "Tailwind CSS", "Sanity CMS", "Node.js"],
       link: "https://e-commerce-website-pi-six-88.vercel.app/",
       github: "https://github.com/Anas-Rajput12/E-commerce-Website",
       image: "/images/pic3.png",
@@ -94,19 +95,12 @@ const Projects = () => {
           marginBottom: "50px",
         }}
       >
-        A selection of professional, modern web applications showcasing AI, full-stack, and creative development.
+        A selection of professional, modern web applications showcasing AI,
+        full-stack, and creative development.
       </p>
 
       {/* Grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "25px",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
+      <div className="projects-grid">
         {projects.map((project, index) => (
           <div
             key={index}
@@ -122,11 +116,13 @@ const Projects = () => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px)";
-              e.currentTarget.style.boxShadow = "0 14px 30px rgba(0,0,0,0.8)";
+              e.currentTarget.style.boxShadow =
+                "0 14px 30px rgba(0,0,0,0.8)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.6)";
+              e.currentTarget.style.boxShadow =
+                "0 10px 25px rgba(0,0,0,0.6)";
             }}
           >
             {/* Image */}
@@ -241,6 +237,29 @@ const Projects = () => {
           </div>
         ))}
       </div>
+
+      {/* ✅ Media queries for grid layout */}
+      <style>
+        {`
+          .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile default */
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+          @media (min-width: 600px) {
+            .projects-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+          @media (min-width: 900px) {
+            .projects-grid {
+              grid-template-columns: repeat(3, 1fr);
+            }
+          }
+        `}
+      </style>
     </section>
   );
 };
