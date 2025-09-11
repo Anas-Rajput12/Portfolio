@@ -23,7 +23,7 @@ const Hero = () => {
           <h1
             style={{
               fontWeight: 800,
-              fontSize: "3rem",
+              fontSize: "2rem",
               marginBottom: "1rem",
               background: "linear-gradient(90deg,#22d3ee,#a855f7)",
               WebkitBackgroundClip: "text",
@@ -186,9 +186,8 @@ const Hero = () => {
 
         .hero-img {
           position: relative;
-          width: 100%;
-          max-width: 280px;
-          aspect-ratio: 280 / 350;
+          width: 280px;
+          height: 350px;
           border-radius: 20px;
           overflow: hidden;
           background: rgba(255, 255, 255, 0.05);
@@ -199,35 +198,30 @@ const Hero = () => {
         }
 
         /* Mobile Styles */
-        /* Mobile Styles */
-@media (max-width: 767px) {
-  .hero-container {
-    flex-direction: column-reverse; /* image top, text bottom */
-    text-align: center;
-  }
+        @media (max-width: 767px) {
+          .hero-container {
+            flex-direction: column-reverse;
+            text-align: center;
+          }
 
-  .hero-text {
-  text-align: center;
-  margin-top: -100px;
-}
+          .hero-text {
+            text-align: center;
+            margin-top: -80px;
+          }
 
+          .hero-socials {
+            justify-content: center;
+          }
 
-  .hero-socials {
-    justify-content: center;
-  }
-
-  .hero-img {
-    border-radius: 50% !important;
-    aspect-ratio: 1 / 1 !important;
-    height: 200px;
-    width: 180px;
-  }
-}
-
+          .hero-img {
+            width: 180px !important;
+            height: 180px !important;
+            border-radius: 50%;
+          }
+        }
       `}</style>
     </section>
   );
 };
 
 export default Hero;
-
