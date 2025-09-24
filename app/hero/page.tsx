@@ -112,7 +112,7 @@ const Hero = () => {
         <div className="hero-img-wrapper">
           <div className="hero-img">
             <Image
-              src="/images/pic (1).png"
+              src="/images/Gemini_Generated_Image_5nobuq5nobuq5nob.png"
               alt="Muhammad Anas Qadri"
               fill
               style={{ objectFit: "cover" }}
