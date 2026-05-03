@@ -1,9 +1,34 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
+interface Socials {
+  github: string;
+  linkedin: string;
+  email: string;
+}
+
 const Hero = () => {
+  const [socials, setSocials] = useState<Socials>({
+    github: "",
+    linkedin: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    async function fetchSocials() {
+      try {
+        const response = await fetch('/api/socials');
+        const data = await response.json();
+        setSocials(data);
+      } catch (error) {
+        console.error('Failed to fetch socials:', error);
+      }
+    }
+
+    fetchSocials();
+  }, []);
   return (
     <section
       id="hero"
@@ -80,13 +105,13 @@ const Hero = () => {
           {/* Social Links */}
           <div className="hero-socials">
             {[
-              { href: "https://github.com/Anas-Rajput12", icon: <FaGithub /> },
+              { href: socials.github, icon: <FaGithub /> },
               {
-                href: "https://www.linkedin.com/in/muhammad-anas-qadri-a7608a2b7/",
+                href: socials.linkedin,
                 icon: <FaLinkedin />,
               },
               {
-                href: "mailto:muhammadanasqadri2@gmail.com",
+                href: `mailto:${socials.email}`,
                 icon: <FaEnvelope />,
               },
             ].map((item, idx) => (

@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import { db } from "@/firebaseconfig";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { BsTelephone } from "react-icons/bs";
+
+interface Socials {
+  github: string;
+  linkedin: string;
+  email: string;
+}
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +22,25 @@ const Contact = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [socials, setSocials] = useState<Socials>({
+    github: "",
+    linkedin: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    async function fetchSocials() {
+      try {
+        const response = await fetch('/api/socials');
+        const data = await response.json();
+        setSocials(data);
+      } catch (error) {
+        console.error('Failed to fetch socials:', error);
+      }
+    }
+
+    fetchSocials();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -51,16 +74,24 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      await addDoc(collection(db, "contacts"), {
-        ...formData,
-        createdAt: Timestamp.now(),
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit contact form');
+      }
 
       setErrors({});
       setSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       console.error("❌ Error saving contact:", error);
+      setErrors({ submit: "Failed to send message. Please try again." });
     } finally {
       setLoading(false);
     }
@@ -94,17 +125,17 @@ const Contact = () => {
 
         {/* Social Links */}
         <div className="social-links">
-          <a href="https://github.com/Anas-Rajput12" target="_blank" rel="noopener noreferrer">
+          <a href={socials.github} target="_blank" rel="noopener noreferrer">
             <FaGithub />
           </a>
           <a
-            href="https://linkedin.com/in/muhammad-anas-qadri-a7608a2b7/"
+            href={socials.linkedin}
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaLinkedin />
           </a>
-          <a href="mailto:muhammadanasqadri2@gmail.com">
+          <a href={`mailto:${socials.email}`}>
             <FaEnvelope />
           </a>
         </div>
@@ -122,7 +153,7 @@ const Contact = () => {
       <div className="contact-info">
         <div>
           <MdOutlineEmail size={22} />
-          <a href="mailto:muhammadanasqadri2@gmail.com">muhammadanasqadri2@gmail.com</a>
+          <a href={`mailto:${socials.email}`}>{socials.email}</a>
         </div>
         <div>
           <BsTelephone size={22} />

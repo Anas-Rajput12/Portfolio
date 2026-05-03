@@ -1,70 +1,52 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  link: string;
+  github: string;
+  image: string;
+}
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "Voice-Based Virtual Assistant",
-      description:
-        "An AI-powered assistant that leverages NLP and voice recognition to provide real-time responses, task automation, and student support through natural conversations.",
-      tech: [
-        "Next.js",
-        "TypeScript",
-        "Speech Recognition API",
-        "Node.js",
-        "Firebase",
-      ],
-      link: "https://final-year-projects-five.vercel.app/",
-      github: "https://github.com/Anas-Rajput12/Final-Year-Project",
-      image: "/images/pic1.png",
-    },
-    {
-      title: "AI Blog Website",
-      description:
-        "A smart blogging platform enhanced with AI for content generation, personalized recommendations, and seamless editing with Sanity CMS.",
-      tech: ["Next.js", "TypeScript", "Tailwind CSS", "Sanity CMS", "Node.js"],
-      link: "https://milestone-3-blog-website.vercel.app/",
-      github: "https://github.com/Anas-Rajput12/Milestone-3-Blog-Website",
-      image: "/images/pic2.png",
-    },
-    {
-      title: "Car Rental Website",
-      description:
-        "A customer-friendly car rental website featuring real-time vehicle listings, booking functionality, and integrated payment gateways.",
-      tech: ["React", "Sanity CMS", "Node.js", "Tailwind CSS"],
-      link: "https://project-rust-pi.vercel.app/",
-      github: "https://github.com/Anas-Rajput12/Hackathon-quarter2",
-      image: "/images/pic4.png",
-    },
-    {
-      title: "Car Rental Dashboard",
-      description:
-        "An admin dashboard for managing vehicles, customers, and bookings with secure authentication, CRUD operations, and analytics insights.",
-      tech: ["Next.js", "Sanity CMS", "Node.js", "Tailwind CSS"],
-      link: "https://project-rust-pi.vercel.app/dashboard",
-      github:
-        "https://github.com/Anas-Rajput12/Hackathon-quarter2/tree/main/app/dashboard",
-      image: "/images/pic5.png",
-    },
-    {
-      title: "Bandage E-Commerce Website",
-      description:
-        "A responsive e-commerce solution offering product listings, cart management, user authentication, and secure checkout workflow.",
-      tech: ["Next.js", "Tailwind CSS", "Sanity CMS", "Node.js"],
-      link: "https://e-commerce-website-pi-six-88.vercel.app/",
-      github: "https://github.com/Anas-Rajput12/E-commerce-Website",
-      image: "/images/pic3.png",
-    },
-    {
-      title: "Weather Dashboard",
-      description:
-        "A modern weather app that provides live updates, 24-hour forecasts, and a 15-day extended outlook with an intuitive, Google-like UI.",
-      tech: ["Next.js", "TypeScript", "Tailwind CSS", "OpenWeatherMap API"],
-      link: "https://weather-delta-coral.vercel.app/",
-      github: "https://github.com/Anas-Rajput12/Weather",
-      image: "/images/pic 6.png",
-    },
-  ];
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const response = await fetch('/api/projects');
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section
+        style={{
+          minHeight: "100vh",
+          padding: "60px 30px",
+          background: "linear-gradient(135deg, #0f172a, #1e293b, #111827)",
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ fontSize: "1.5rem", color: "#22d3ee" }}>Loading projects...</p>
+      </section>
+    );
+  }
 
   return (
     <section
